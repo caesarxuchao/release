@@ -103,12 +103,12 @@ release::set_build_version () {
   fi
   local main_job="ci-kubernetes-e2e-gce$branch_suffix"
   local -a JOB
-  local -a gce_jobs=("ci-kubernetes-e2e-gce-serial$branch_suffix"
-                     "ci-kubernetes-e2e-gce-slow$branch_suffix"
+#  local -a gce_jobs=("ci-kubernetes-e2e-gce-serial$branch_suffix"
+  local -a gce_jobs=("ci-kubernetes-e2e-gce-slow$branch_suffix"
                      "ci-kubernetes-kubemark-5-gce$branch_suffix"
                      "ci-kubernetes-e2e-gce-reboot$branch_suffix"
                      "ci-kubernetes-e2e-gce-scalability$branch_suffix"
-                     "ci-kubernetes-test-go$branch_suffix"
+                     #"ci-kubernetes-test-go$branch_suffix"
                     )
   # Release branches don't have a special cross-build job. If we're considering
   # a particular revision on a release branch, it must have built successfully.
@@ -125,7 +125,7 @@ release::set_build_version () {
   # kubernetes-e2e-gke-subnet - Uses a branch version?
   # kubernetes-e2e-gke-test - Uses a branch version?
   local -a gke_jobs=(
-                     "ci-kubernetes-e2e-gke-serial$branch_suffix"
+                     #"ci-kubernetes-e2e-gke-serial$branch_suffix"
                      "ci-kubernetes-e2e-gke$branch_suffix"
                      "ci-kubernetes-e2e-gke-slow$branch_suffix"
                     )
