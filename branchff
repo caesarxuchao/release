@@ -139,7 +139,11 @@ logrun -s git merge -X ours $MASTER_OBJECT
 
 # TODO: This is actually broken until #27992 lands
 logecho -n "update-all.sh: "
-logrun -s hack/update-all.sh
+#logrun -s hack/update-all.sh
+# CHAO: just run what is needed
+hack/update-openapi-spec.sh
+hack/update-generated-docs.sh
+hack/update-federation-openapi-spec.sh
 
 if [[ -n "$(git status -s)" ]]; then
   logecho -n "Commit changes: "
