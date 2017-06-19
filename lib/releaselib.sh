@@ -115,11 +115,29 @@ release::set_build_version () {
 
   local main_job="${all_jobs[0]}"
 
+  echo "CHAO: exclude_suites=${exclude_suites}"
+  echo "CHAO: #exclude_suites=#${exclude_suites[*]}"
   # Loop through the remainder, excluding anything specified by --exclude_suites
-  for ((i=1;i<=${#all_jobs[*]};i++)); do
-    re="\\b${all_jobs[$i]}\\b"
-    [[ ${exclude_suites[*]} =~ $re ]] || secondary_jobs+=(${all_jobs[$i]})
+  for ((i=1;i<${#all_jobs[*]};i++)); do
+#    re="\\b${all_jobs[$i]}\\b"
+#    [[ ${exclude_suites[*]} =~ $re ]] || secondary_jobs+=(${all_jobs[$i]})
+match="false"
+    job="${all_jobs[$i]}"
+    for ((j=0;j<${#exclude_suites[*]};j++)); do
+      re="${exclude_suites[$j]}"
+      #echo "CHAO: re=${re}"
+      if [[ $job =~ ${re} ]]; then
+        match="true"
+        break
+      fi
+    done
+    if [[ $match == "false" ]]; then
+      echo "CHAO: adding ${all_jobs[$i]}"
+      secondary_jobs+=(${all_jobs[$i]})
+    fi
   done
+  
+  echo "CHAO: secondary_jobs=${secondary_jobs[*]}"
 
   # Update main cache
   # We dedup the $main_job's list of successful runs and just run through that
